@@ -14,6 +14,10 @@
     
 </head>
 <body>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+    </form>
+        
     <div id="app">
 
         <b-navbar toggleable="lg" type="dark" variant="info">
@@ -34,8 +38,8 @@
           @else
 
             <!-- Navbar dropdowns -->
-            <b-nav-item-dropdown text="Username" right>
-                <b-dropdown-item href="#">Cerrar Session</b-dropdown-item>
+            <b-nav-item-dropdown text="{{  auth()->user()->name }} "right>
+                <b-dropdown-item href="#" @click= "logout">Cerrar Seccion </b-dropdown-item>
                
             </b-nav-item-dropdown>
 
@@ -45,6 +49,13 @@
         </b-collapse>
         </b-navbar>
 
+@yield('content')
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+</html>
 
 
                
@@ -52,10 +63,4 @@
                
        
 
-        @yield('content')
-    </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
-</html>
+        

@@ -27035,7 +27035,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_bootstrap_vue__["a" /* default */]);
 Vue.component('example-component', __webpack_require__(284));
 
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+    //objeto que contien los metodos que queremos definir
+    methods: {
+        logout: function logout() {
+            document.getElementById('logout-form').submit();
+        }
+    }
 });
 
 /***/ }),
