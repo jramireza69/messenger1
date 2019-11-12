@@ -18,13 +18,13 @@ class UsersTableSeeder extends Seeder
         	'password' => bcrypt( '1286')
         ]);
         User::create([
-            'name' => 'Victor',
-            'email' => 'admi1n@mail.com',
+            'name' => 'Carlos',
+            'email' => 'carlos@mail.com',
             'password' => bcrypt( '1286')
         ]);
         User::create([
-            'name' => 'Adriana',
-            'email' => 'admi2n@mail.com',
+            'name' => 'Ramos',
+            'email' => 'ramos@mail.com',
             'password' => bcrypt( '1286')
         ]);
     }

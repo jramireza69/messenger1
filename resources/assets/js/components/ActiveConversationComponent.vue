@@ -1,19 +1,21 @@
 <template>
   <b-row class="h-100">
-          <b-col cols="8">  
-           <b-card
+      <b-col cols="8">  
+         <b-card no-body
               footer-bg-variant="light"
               footer-border-variant="dark"
               title="Conversacion activa"
-              class="h-100">            
-              
-          <message-conversation-component
-           v-for="message in messages"
-           :key="message.id"
+              class="h-100">  
+
+               <b-card-body class="card-body-scroll">
+            <message-conversation-component
+           v-for="message in messages":key="message.id"
            v-bind:written-by-me="message.written_by_me">  <!-- uso directiva bind -->
             {{ message.content}}
-          </message-conversation-component>
-
+          </message-conversation-component>     
+               </b-card-body>          
+              
+          
                
 
 
@@ -39,7 +41,7 @@
 
               <b-col cols="4">
                 <b-img  rounded="circle" blank width="48" height="48" blank-color="777" alt="Circle image" class="m-1"></b-img>
-                  <p>Usuario Seleccionado</p>
+                  <p>{{ contactName }}</p>
                   <hr>
                   <b-form-checkbox >
                  
@@ -50,45 +52,49 @@
            
 </template>
 
+<style>
+  .card-body-scroll {
+    max-height: calc(100vh - 63px);
+    overflow-y: auto; 
+  }
+</style>
+
 <script>
     export default {
+      props: {
+        contactId: Number,
+        contactName: String,
+        messages: Array
+      },
         data(){
-            return{  
-              messages: [],
-              newMessage: '',
-              contactId: 2
+            return{
+              newMessage: ''
+            //  contactId: 2  //variable que se usa para hacer la peticion del contacto que pide la conversacion y esta sera la propieda que se enviara al componente hijo.
             };
 
         },
         mounted() {
-          this.getMessages();
+         
         },
         methods: {
-          getMessages () {
-            axios.get(`/api/messages?contact_id=${this.contactId}`)
-               .then((response) => {
-
-                //console.log(response.data);
-                this.messages = response.data;
-               });
-          },
           postMessage () {
             const params = {
-              to_id: 2,
+              to_id: this.contactId,
               content: this.newMessage
-
-            };
+             };
             axios.post('/api/messages', params)
                .then((response) => {
-
                 if(response.data.success){
                  this.newMessage= '';
-                this.getMessages();  
+                 const message = response.data.message;
+                 message.written_by_me = true;
+                 this.$emit('messageCreated', message);
                 }
                
-               });
+             });
+            }
 
-          }
         }
     }
+            
 </script>

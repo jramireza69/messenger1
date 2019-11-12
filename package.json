@@ -16,6 +16,8 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "bootstrap-vue": "^2.0.4"
+        "bootstrap-vue": "^2.0.4",
+        "laravel-echo": "^1.6.1",
+        "pusher-js": "^5.0.2"
     }
 }
